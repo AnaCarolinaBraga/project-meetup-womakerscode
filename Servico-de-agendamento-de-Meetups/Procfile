@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -D8080=$PORT -jar meetup-project-bootcampjava.jar
+web: java -jar target/InfinityBank-0.0.1-SNAPSHOT.jar
