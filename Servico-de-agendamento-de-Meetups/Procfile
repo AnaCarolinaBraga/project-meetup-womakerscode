@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.womakerscode.microservicemeetup
+web: java $JAVA_OPTS -D8080=$PORT -jar meetup-project-bootcampjava.jar
