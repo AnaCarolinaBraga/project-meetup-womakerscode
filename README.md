@@ -12,7 +12,7 @@
 - TDD (Test Driven Development)
 - Heroku: Cloud Application Platform
 
-### O que está sendo feito/ O que falta fazer
+### O que foi feito:
 
 - [x] Implementação da classe de servico
 
