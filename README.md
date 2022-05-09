@@ -14,7 +14,7 @@
 
 ### O que está sendo feito/ O que falta fazer
 
-- [x] Implementação da classe se servico
+- [x] Implementação da classe de servico
 
 - [x] Testes no service
 
