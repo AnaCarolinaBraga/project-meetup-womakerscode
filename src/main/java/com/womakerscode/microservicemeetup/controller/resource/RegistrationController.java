@@ -30,7 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED) //aqui é o status que quer que retorne com esse método
+    @ResponseStatus(HttpStatus.CREATED)
     public RegistrationDTO create(@RequestBody @Valid RegistrationDTO dto){
         Registration entity = modelMapper.map(dto, Registration.class);
         entity = registrationService.save(entity);

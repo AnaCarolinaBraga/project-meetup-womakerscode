@@ -39,11 +39,8 @@ public class RegistrationServiceTest {
 
 
 
-    @BeforeEach    //essa anotação vai dizer que antes de cada teste, vamos fazer isso, rodar essa dependencia do service
+    @BeforeEach
     public void setUp(){
-        // vamos inserir aqui a dependencia do service e dar um new na mesma
-        //Como se fosse um @builder, mas aqui a gente precisa colocar o que queremos que aconteça e que rode
-        //quando estivermos fazendo esses testes.
         this.registrationService = new RegistrationServiceImpl(repository);
     }
 
@@ -51,29 +48,19 @@ public class RegistrationServiceTest {
     @DisplayName("Should save an registration")
     public void saveRegistration(){
 
-        //cenário, o que é necessario fazer para o teste funcionar
-        //Aqui a gente mocka um objeto
         Registration registration = createValidRegistration();
 
-        //execução, aqui a gente simula o que ta dentro do serviço/controller
-        //Nesse caso, vamos simular o ato de salvar um dado. para isso, precisamos chamar o repository
-        //O when vai chamar o repository e o método, o retorno do método tem que ser uma string qualquer
-        //Essa primeira parte ta mockando comportamento, ele nao ta validando retorno
         Mockito.when(repository.existsByRegistration(Mockito.anyString())).thenReturn(false);
         Mockito.when(repository.save(registration)).thenReturn(createValidRegistration()); //quero que ele retorne um objeto criado de forma válida
 
-        //esse é para validar o retorno
         Registration savedRegistration = registrationService.save(registration);
 
-        //assert, estamos garantindo que o retorno seja o que a gente espera
-        assertThat(savedRegistration.getId()).isEqualTo(101);   //o isEqualTo tem que retornar o que ta dentro do mock
-        assertThat(savedRegistration.getName()).isEqualTo("Ana Carolina");   //o isEqualTo tem que retornar o que ta dentro do mock
-        assertThat(savedRegistration.getDateOfRegistration()).isEqualTo("01/04/2022");   //o isEqualTo tem que retornar o que ta dentro do mock
-        assertThat(savedRegistration.getRegistration()).isEqualTo("001");   //o isEqualTo tem que retornar o que ta dentro do mock
+        assertThat(savedRegistration.getId()).isEqualTo(101);
+        assertThat(savedRegistration.getName()).isEqualTo("Ana Carolina");
+        assertThat(savedRegistration.getDateOfRegistration()).isEqualTo("01/04/2022");
+        assertThat(savedRegistration.getRegistration()).isEqualTo("001");
 
     }
-
-
 
     @Test
     @DisplayName("Should throw business error when try to save a new registration when this registration already exist")
@@ -83,12 +70,12 @@ public class RegistrationServiceTest {
         Registration registration = createValidRegistration();
         Mockito.when(repository.existsByRegistration(Mockito.any())).thenReturn(true);
 
-        Throwable exception = Assertions.catchThrowable( () -> registrationService.save(registration));   //não é possível mockar exceções, então se faz dessa forma
+        Throwable exception = Assertions.catchThrowable( () -> registrationService.save(registration));
         assertThat(exception)
-                .isInstanceOf(BusinessException.class)  //quer garantir que a exceção é uma exceção de uma instância
+                .isInstanceOf(BusinessException.class)
                 .hasMessage("Registration already created");
 
-        Mockito.verify(repository, Mockito.never()).save(registration); //aqui é para verificar que nunca vai salvar caso isso aconteça
+        Mockito.verify(repository, Mockito.never()).save(registration);
     }
 
     @Test
@@ -117,13 +104,13 @@ public class RegistrationServiceTest {
 
         //cenario
         Integer id = 11;
-        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());  //não precisa trazer o objeto todo, ja que so estamos trabalhando com o id
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
 
         //execução
         Optional<Registration> registration  = registrationService.getRegistrationById(id);
 
         //assert
-        assertThat(registration.isPresent()).isFalse(); //quero garantir que o registration esteja presente e que dê falso. Isso é porque é para validar um cenário de erro
+        assertThat(registration.isPresent()).isFalse();
     }
 
     @Test
@@ -132,7 +119,7 @@ public class RegistrationServiceTest {
 
         Registration registration = Registration.builder().id(11).build();
 
-        assertDoesNotThrow(() -> registrationService.delete(registration));  //ta garantindo que não vai gerar a exceção se der erro, ja que é um teste?
+        assertDoesNotThrow(() -> registrationService.delete(registration));
 
         Mockito.verify(repository, Mockito.times(1)).delete(registration);
     }
@@ -167,9 +154,9 @@ public class RegistrationServiceTest {
 
         // cenario
         Registration registration = createValidRegistration();
-        PageRequest pageRequest = PageRequest.of(0,10);  //usa esse pagerequest pq ta procurando uma lista, é uma classe interna do spring data
+        PageRequest pageRequest = PageRequest.of(0,10);
 
-        List<Registration> listRegistrations = Arrays.asList(registration);  //array.aslist como substituto melhorado do arraylist
+        List<Registration> listRegistrations = Arrays.asList(registration);
         Page<Registration> page = new PageImpl<Registration>(Arrays.asList(registration),
                 PageRequest.of(0,10), 1);
 
@@ -213,9 +200,7 @@ public class RegistrationServiceTest {
                 .id(101)
                 .name("Ana Carolina")
                 .dateOfRegistration("01/04/2022")
-                .registration("001") //aqui vamos supor que seja quantidade de inserções de objetos na tabela.
-                //como é a "versão 1" dessa pessoa, fica 001. Se atualizasse algo, mudaria esse numero
-                .build();  //Ele construiu esse objeto
-    }
+                .registration("001")
+                .build();
 
 }

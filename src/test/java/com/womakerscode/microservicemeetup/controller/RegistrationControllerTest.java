@@ -38,11 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest(controllers = {RegistrationController.class}) //aqui a gente informa qual classe queremos testar com esse teste de controller
-@AutoConfigureMockMvc //anotação do junit, consegue trazer expressões mockadas do nosso controller
+@WebMvcTest(controllers = {RegistrationController.class})
+@AutoConfigureMockMvc
 public class RegistrationControllerTest {
 
-    static String REGISTRATION_API = "/api/registration";  //static quer dizer que não pode mudar essa String, letra maiuscula é padrao para string estatica
+    static String REGISTRATION_API = "/api/registration";
 
     @Autowired
     MockMvc mockMvc;
@@ -59,13 +59,11 @@ public class RegistrationControllerTest {
         Registration savedRegistration  = Registration.builder().id(101)
                 .name("Ana Carolina").dateOfRegistration("10/10/2021").registration("001").build();
 
-
         // execucao
         BDDMockito.given(registrationService.save(any(Registration.class))).willReturn(savedRegistration);
 
 
         String json  = new ObjectMapper().writeValueAsString(registrationDTOBuilder);
-
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(REGISTRATION_API)   //aqui eu chamo a rota, que definimos como String estatica la em cima
@@ -290,10 +288,6 @@ public class RegistrationControllerTest {
                 .andExpect(jsonPath("pageable.pageNumber"). value(0));
 
     }
-
-
-
-
 
     private RegistrationDTO createNewRegistration() {
         return  RegistrationDTO.builder().id(101).name("Ana Carolina").dateOfRegistration("10/10/2021").registration("001").build();

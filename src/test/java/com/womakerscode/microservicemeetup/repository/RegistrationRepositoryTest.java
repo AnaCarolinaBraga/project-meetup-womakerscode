@@ -36,7 +36,7 @@ public class RegistrationRepositoryTest {
 
         boolean exists = repository.existsByRegistration(registration);
 
-        assertThat(exists).isTrue();    //se a classe registration não estiver com a marcaçao @Entity, aqui da erro
+        assertThat(exists).isTrue();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class RegistrationRepositoryTest {
     public void findByIdTest() {
 
         Registration registration_Class_attribute = createNewRegistration("323");
-        entityManager.persist(registration_Class_attribute);   //esses dados precisam ser "persistidos" porque é uma simulaçao de banco de dados
+        entityManager.persist(registration_Class_attribute);
 
         Optional<Registration> foundRegistration = repository
                 .findById(registration_Class_attribute.getId());
@@ -71,7 +71,7 @@ public class RegistrationRepositoryTest {
 
         Registration registration_Class_attribute = createNewRegistration("323");
 
-        Registration savedRegistration = repository.save(registration_Class_attribute);  //aqui ele simula o ato de salvar
+        Registration savedRegistration = repository.save(registration_Class_attribute);
 
         assertThat(savedRegistration.getId()).isNotNull();
 

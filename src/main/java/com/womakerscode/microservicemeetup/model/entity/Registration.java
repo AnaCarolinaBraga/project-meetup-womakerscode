@@ -12,14 +12,14 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder    //Essas anotações criam os constructos, getters e setters
+@Builder
 @Entity
 @Table
 public class Registration {
 
-    @Id  //vai dizer que é um elemento único na tabela/banco
-    @Column(name = "registration_id") //esse vai ser o nome da nossa tabela
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   //tem que ter uma pessoa com esse ID?
+    @Id
+    @Column(name = "registration_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "person_name")
@@ -28,7 +28,7 @@ public class Registration {
     @Column(name = "date_of_registration")
     private String dateOfRegistration;
 
-    @Column   //o nome da tabela vai ficar "registration" mesmo quando não especificamos
+    @Column
     private String registration;
 
 }
