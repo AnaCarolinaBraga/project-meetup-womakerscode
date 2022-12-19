@@ -12,6 +12,10 @@
 - TDD (Test Driven Development)
 - Heroku: Cloud Application Platform
 
+### Vídeo com Apresentação do projeto (Ao clicar na imagem, será direcionado ao youtube)
+
+[<img src="https://media.discordapp.net/attachments/951643233665044541/1054193009002033222/image.png?width=705&height=334" width="50%">](https://www.youtube.com/watch?v=nxIL2zD9II0 "Now in Android: 55")
+
 ### O que foi feito:
 
 - [x] Implementação da classe de servico
